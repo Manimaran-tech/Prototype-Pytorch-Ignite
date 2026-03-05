@@ -1,11 +1,11 @@
 # Results — Trainite Prototype
 
-## Mentor Feedback Addressed
+## Feedback Addressed
 
 During the GSoC 2026 discussion on PyTorch-Ignite Discord, mentor **vfdev-5** provided
 the following guidance for the prototype:
 
-### What the Mentor Asked
+### Suggestions
 
 1. **Build a working prototype** — not just a proposal, but real, runnable code
    that demonstrates the end-to-end training pipeline.
@@ -28,7 +28,7 @@ the following guidance for the prototype:
 
 ---
 
-### What We Achieved
+### What I Achieved
 
 | Requirement                    | Status   | Details                                             |
 | ------------------------------ | -------- | --------------------------------------------------- |
