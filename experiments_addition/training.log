@@ -1,0 +1,80 @@
+2026-03-06 16:29:49,584 [INFO] Starting training for 30 epochs...
+2026-03-06 16:29:49,584 [INFO] Output directory: ./experiments_addition
+2026-03-06 16:29:49,584 [INFO] Device: cuda
+2026-03-06 16:29:49,584 [INFO] Model params: 4,747,280
+2026-03-06 16:29:49,585 [INFO] Engine run starting with max_epochs=30.
+2026-03-06 16:30:54,523 [INFO] Epoch 001 | Train Loss: 1.0096 | Val Loss: 0.9002 | Val Token Acc: 0.6529 | Val Seq Acc: 0.1033
+2026-03-06 16:30:54,612 [INFO] Epoch[1] Complete. Time taken: 00:01:05.025
+2026-03-06 16:32:00,217 [INFO] Epoch 002 | Train Loss: 0.5737 | Val Loss: 0.3404 | Val Token Acc: 0.8725 | Val Seq Acc: 0.5213
+2026-03-06 16:32:00,268 [INFO] Epoch[2] Complete. Time taken: 00:01:05.655
+2026-03-06 16:33:07,112 [INFO] Epoch 003 | Train Loss: 0.2358 | Val Loss: 0.1005 | Val Token Acc: 0.9605 | Val Seq Acc: 0.7968
+2026-03-06 16:33:07,143 [INFO] Epoch[3] Complete. Time taken: 00:01:06.875
+2026-03-06 16:34:12,837 [INFO] Epoch 004 | Train Loss: 0.1298 | Val Loss: 0.0454 | Val Token Acc: 0.9838 | Val Seq Acc: 0.9097
+2026-03-06 16:34:12,867 [INFO] Epoch[4] Complete. Time taken: 00:01:05.725
+2026-03-06 16:35:18,811 [INFO] Epoch 005 | Train Loss: 0.0834 | Val Loss: 0.0261 | Val Token Acc: 0.9908 | Val Seq Acc: 0.9483
+2026-03-06 16:35:18,842 [INFO] Epoch[5] Complete. Time taken: 00:01:05.974
+2026-03-06 16:36:25,061 [INFO] Epoch 006 | Train Loss: 0.0589 | Val Loss: 0.0180 | Val Token Acc: 0.9931 | Val Seq Acc: 0.9605
+2026-03-06 16:36:25,088 [INFO] Epoch[6] Complete. Time taken: 00:01:06.246
+2026-03-06 16:37:30,365 [INFO] Epoch 007 | Train Loss: 0.0490 | Val Loss: 0.0167 | Val Token Acc: 0.9934 | Val Seq Acc: 0.9622
+2026-03-06 16:37:30,394 [INFO] Epoch[7] Complete. Time taken: 00:01:05.306
+2026-03-06 16:38:36,667 [INFO] Epoch 008 | Train Loss: 0.0445 | Val Loss: 0.0162 | Val Token Acc: 0.9935 | Val Seq Acc: 0.9635
+2026-03-06 16:38:36,698 [INFO] Epoch[8] Complete. Time taken: 00:01:06.304
+2026-03-06 16:39:43,822 [INFO] Epoch 009 | Train Loss: 0.0334 | Val Loss: 0.0123 | Val Token Acc: 0.9951 | Val Seq Acc: 0.9727
+2026-03-06 16:39:43,856 [INFO] Epoch[9] Complete. Time taken: 00:01:07.157
+2026-03-06 16:40:50,352 [INFO] Epoch 010 | Train Loss: 0.0328 | Val Loss: 0.0126 | Val Token Acc: 0.9948 | Val Seq Acc: 0.9715
+2026-03-06 16:40:50,352 [INFO] Epoch[10] Complete. Time taken: 00:01:06.496
+2026-03-06 16:41:56,276 [INFO] Epoch 011 | Train Loss: 0.0250 | Val Loss: 0.0096 | Val Token Acc: 0.9961 | Val Seq Acc: 0.9778
+2026-03-06 16:41:56,312 [INFO] Epoch[11] Complete. Time taken: 00:01:05.960
+2026-03-06 16:43:02,428 [INFO] Epoch 012 | Train Loss: 0.0243 | Val Loss: 0.0080 | Val Token Acc: 0.9967 | Val Seq Acc: 0.9816
+2026-03-06 16:43:02,460 [INFO] Epoch[12] Complete. Time taken: 00:01:06.147
+2026-03-06 16:44:09,600 [INFO] Epoch 013 | Train Loss: 0.0245 | Val Loss: 0.0069 | Val Token Acc: 0.9972 | Val Seq Acc: 0.9839
+2026-03-06 16:44:09,629 [INFO] Epoch[13] Complete. Time taken: 00:01:07.168
+2026-03-06 16:45:16,222 [INFO] Epoch 014 | Train Loss: 0.0197 | Val Loss: 0.0069 | Val Token Acc: 0.9975 | Val Seq Acc: 0.9859
+2026-03-06 16:45:16,222 [INFO] Epoch[14] Complete. Time taken: 00:01:06.593
+2026-03-06 16:46:23,537 [INFO] Epoch 015 | Train Loss: 0.0188 | Val Loss: 0.0063 | Val Token Acc: 0.9977 | Val Seq Acc: 0.9867
+2026-03-06 16:46:23,570 [INFO] Epoch[15] Complete. Time taken: 00:01:07.347
+2026-03-06 16:47:29,867 [INFO] Epoch 016 | Train Loss: 0.0169 | Val Loss: 0.0058 | Val Token Acc: 0.9980 | Val Seq Acc: 0.9889
+2026-03-06 16:47:29,910 [INFO] Epoch[16] Complete. Time taken: 00:01:06.341
+2026-03-06 16:48:37,137 [INFO] Epoch 017 | Train Loss: 0.0159 | Val Loss: 0.0044 | Val Token Acc: 0.9985 | Val Seq Acc: 0.9917
+2026-03-06 16:48:37,167 [INFO] Epoch[17] Complete. Time taken: 00:01:07.257
+2026-03-06 16:49:44,348 [INFO] Epoch 018 | Train Loss: 0.0152 | Val Loss: 0.0040 | Val Token Acc: 0.9986 | Val Seq Acc: 0.9920
+2026-03-06 16:49:44,387 [INFO] Epoch[18] Complete. Time taken: 00:01:07.219
+2026-03-06 16:50:50,015 [INFO] Epoch 019 | Train Loss: 0.0171 | Val Loss: 0.0036 | Val Token Acc: 0.9990 | Val Seq Acc: 0.9944
+2026-03-06 16:50:50,045 [INFO] Epoch[19] Complete. Time taken: 00:01:05.658
+2026-03-06 16:51:55,968 [INFO] Epoch 020 | Train Loss: 0.0146 | Val Loss: 0.0045 | Val Token Acc: 0.9985 | Val Seq Acc: 0.9918
+2026-03-06 16:51:55,968 [INFO] Epoch[20] Complete. Time taken: 00:01:05.922
+2026-03-06 16:53:01,937 [INFO] Epoch 021 | Train Loss: 0.0111 | Val Loss: 0.0055 | Val Token Acc: 0.9983 | Val Seq Acc: 0.9905
+2026-03-06 16:53:01,937 [INFO] Epoch[21] Complete. Time taken: 00:01:05.969
+2026-03-06 16:54:07,346 [INFO] Epoch 022 | Train Loss: 0.0102 | Val Loss: 0.0033 | Val Token Acc: 0.9989 | Val Seq Acc: 0.9940
+2026-03-06 16:54:07,375 [INFO] Epoch[22] Complete. Time taken: 00:01:05.438
+2026-03-06 16:55:13,017 [INFO] Epoch 023 | Train Loss: 0.0118 | Val Loss: 0.0026 | Val Token Acc: 0.9992 | Val Seq Acc: 0.9958
+2026-03-06 16:55:13,045 [INFO] Epoch[23] Complete. Time taken: 00:01:05.669
+2026-03-06 16:56:18,968 [INFO] Epoch 024 | Train Loss: 0.0120 | Val Loss: 0.0037 | Val Token Acc: 0.9989 | Val Seq Acc: 0.9937
+2026-03-06 16:56:18,968 [INFO] Epoch[24] Complete. Time taken: 00:01:05.923
+2026-03-06 16:57:25,103 [INFO] Epoch 025 | Train Loss: 0.0099 | Val Loss: 0.0053 | Val Token Acc: 0.9985 | Val Seq Acc: 0.9917
+2026-03-06 16:57:25,103 [INFO] Epoch[25] Complete. Time taken: 00:01:06.135
+2026-03-06 16:58:30,781 [INFO] Epoch 026 | Train Loss: 0.0094 | Val Loss: 0.0034 | Val Token Acc: 0.9991 | Val Seq Acc: 0.9950
+2026-03-06 16:58:30,781 [INFO] Epoch[26] Complete. Time taken: 00:01:05.678
+2026-03-06 16:59:36,489 [INFO] Epoch 027 | Train Loss: 0.0095 | Val Loss: 0.0028 | Val Token Acc: 0.9991 | Val Seq Acc: 0.9949
+2026-03-06 16:59:36,489 [INFO] Epoch[27] Complete. Time taken: 00:01:05.707
+2026-03-06 17:00:42,761 [INFO] Epoch 028 | Train Loss: 0.0080 | Val Loss: 0.0027 | Val Token Acc: 0.9991 | Val Seq Acc: 0.9949
+2026-03-06 17:00:42,762 [INFO] Epoch[28] Complete. Time taken: 00:01:06.273
+2026-03-06 17:01:47,487 [INFO] Epoch 029 | Train Loss: 0.0069 | Val Loss: 0.0026 | Val Token Acc: 0.9992 | Val Seq Acc: 0.9956
+2026-03-06 17:01:47,522 [INFO] Epoch[29] Complete. Time taken: 00:01:04.760
+2026-03-06 17:02:53,755 [INFO] Epoch 030 | Train Loss: 0.0095 | Val Loss: 0.0154 | Val Token Acc: 0.9974 | Val Seq Acc: 0.9893
+2026-03-06 17:02:53,755 [INFO] Epoch[30] Complete. Time taken: 00:01:06.233
+2026-03-06 17:02:53,755 [INFO] Engine run finished. Time taken: 00:33:04.170
+2026-03-06 17:02:53,784 [INFO] Training complete!
+2026-03-06 17:02:53,784 [INFO] Best Val Loss: 0.0026 | Best Val Seq Acc: 0.9958
+2026-03-06 17:02:53,784 [INFO] 
+2026-03-06 17:02:53,784 [INFO] =================================================================
+2026-03-06 17:02:53,784 [INFO]   INFERENCE DEMO
+2026-03-06 17:02:53,784 [INFO] =================================================================
+2026-03-06 17:02:53,809 [INFO]   [PASS]  '12+34=' -> expected '46' | got '46'
+2026-03-06 17:02:53,818 [INFO]   [PASS]  '99+1=' -> expected '100' | got '100'
+2026-03-06 17:02:53,834 [INFO]   [PASS]  '123+456=' -> expected '579' | got '579'
+2026-03-06 17:02:53,852 [INFO]   [FAIL]  '9999+1=' -> expected '10000' | got '1000'
+2026-03-06 17:02:53,874 [INFO]   [PASS]  '12345+67890=' -> expected '80235' | got '80235'
+2026-03-06 17:02:53,874 [INFO] 
+  Inference Accuracy: 4/5
+2026-03-06 17:02:53,874 [INFO] =================================================================

@@ -17,7 +17,7 @@ import yaml
 import torch
 from torch.utils.data import DataLoader, random_split
 
-from trainite.datasets import StringReverseDataset, collate_fn
+from trainite.datasets import StringReverseDataset, IntegerAdditionDataset, collate_fn
 from trainite.models import DecoderOnlyTransformer
 from trainite.trainers import Trainer
 
@@ -66,12 +66,23 @@ def main():
     os.makedirs(output_dir, exist_ok=True)
 
     # ─── Dataset ───
-    dataset = StringReverseDataset(
-        num_samples=config["dataset"]["size"],
-        min_len=config["dataset"]["min_len"],
-        max_len=config["dataset"]["max_len"],
-        seed=args.seed,
-    )
+    task_type = config["dataset"].get("task_type", "string_reverse")
+    if task_type == "string_reverse":
+        dataset = StringReverseDataset(
+            num_samples=config["dataset"]["size"],
+            min_len=config["dataset"]["min_len"],
+            max_len=config["dataset"]["max_len"],
+            seed=args.seed,
+        )
+    elif task_type == "integer_addition":
+        dataset = IntegerAdditionDataset(
+            num_samples=config["dataset"]["size"],
+            min_digits=config["dataset"]["min_digits"],
+            max_digits=config["dataset"]["max_digits"],
+            seed=args.seed,
+        )
+    else:
+        raise ValueError(f"Unknown task type: {task_type}")
 
     train_size = int(0.8 * len(dataset))
     val_size = len(dataset) - train_size
@@ -140,36 +151,69 @@ def main():
     logger.info("=" * 65)
 
     model.eval()
-    test_strings = ["hello", "world", "ignite", "pytorch", "gsoc", "abc", "trainite"]
+    
+    if task_type == "string_reverse":
+        test_strings = ["hello", "world", "ignite", "pytorch", "gsoc", "abc", "trainite"]
+        correct = 0
+        for s in test_strings:
+            # Encode: [SOS] + chars + [SEP]
+            tokens = [dataset.sos_idx] + [dataset.c2i[c] for c in s] + [dataset.sep_idx]
+            prompt = torch.tensor([tokens], dtype=torch.long, device=device)
 
-    correct = 0
-    for s in test_strings:
-        # Encode: [SOS] + chars + [SEP]
-        tokens = [dataset.sos_idx] + [dataset.c2i[c] for c in s] + [dataset.sep_idx]
-        prompt = torch.tensor([tokens], dtype=torch.long, device=device)
+            generated = model.generate(
+                prompt, max_new_tokens=len(s) + 5, eos_token_id=dataset.eos_idx
+            )
+            gen_tokens = generated[0].tolist()
 
-        generated = model.generate(
-            prompt, max_new_tokens=len(s) + 5, eos_token_id=dataset.eos_idx
-        )
-        gen_tokens = generated[0].tolist()
+            # Decode output (tokens after [SEP])
+            sep_pos = gen_tokens.index(dataset.sep_idx) if dataset.sep_idx in gen_tokens else -1
+            if sep_pos >= 0:
+                output_tokens = gen_tokens[sep_pos + 1:]
+                if dataset.eos_idx in output_tokens:
+                    output_tokens = output_tokens[:output_tokens.index(dataset.eos_idx)]
+                predicted = "".join(dataset.i2c.get(t, "?") for t in output_tokens)
+            else:
+                predicted = "<failed>"
 
-        # Decode output (tokens after [SEP])
-        sep_pos = gen_tokens.index(dataset.sep_idx) if dataset.sep_idx in gen_tokens else -1
-        if sep_pos >= 0:
-            output_tokens = gen_tokens[sep_pos + 1:]
-            if dataset.eos_idx in output_tokens:
-                output_tokens = output_tokens[:output_tokens.index(dataset.eos_idx)]
-            predicted = "".join(dataset.i2c.get(t, "?") for t in output_tokens)
-        else:
-            predicted = "<failed>"
+            expected = s[::-1]
+            status = "PASS" if predicted == expected else "FAIL"
+            if predicted == expected:
+                correct += 1
+            logger.info(f"  [{status}]  '{s}' -> expected '{expected}' | got '{predicted}'")
 
-        expected = s[::-1]
-        status = "PASS" if predicted == expected else "FAIL"
-        if predicted == expected:
-            correct += 1
-        logger.info(f"  [{status}]  '{s}' -> expected '{expected}' | got '{predicted}'")
+        logger.info(f"\n  Inference Accuracy: {correct}/{len(test_strings)}")
+        
+    elif task_type == "integer_addition":
+        test_pairs = [("12", "34"), ("99", "1"), ("123", "456"), ("9999", "1"), ("12345", "67890")]
+        correct = 0
+        for num1, num2 in test_pairs:
+            s_input = f"{num1}+{num2}="
+            expected = str(int(num1) + int(num2))
+            
+            tokens = [dataset.sos_idx] + [dataset.c2i[c] for c in s_input] + [dataset.sep_idx]
+            prompt = torch.tensor([tokens], dtype=torch.long, device=device)
 
-    logger.info(f"\n  Inference Accuracy: {correct}/{len(test_strings)}")
+            generated = model.generate(
+                prompt, max_new_tokens=len(expected) + 5, eos_token_id=dataset.eos_idx
+            )
+            gen_tokens = generated[0].tolist()
+
+            sep_pos = gen_tokens.index(dataset.sep_idx) if dataset.sep_idx in gen_tokens else -1
+            if sep_pos >= 0:
+                output_tokens = gen_tokens[sep_pos + 1:]
+                if dataset.eos_idx in output_tokens:
+                    output_tokens = output_tokens[:output_tokens.index(dataset.eos_idx)]
+                predicted = "".join(dataset.i2c.get(t, "?") for t in output_tokens)
+            else:
+                predicted = "<failed>"
+
+            status = "PASS" if predicted == expected else "FAIL"
+            if predicted == expected:
+                correct += 1
+            logger.info(f"  [{status}]  '{s_input}' -> expected '{expected}' | got '{predicted}'")
+
+        logger.info(f"\n  Inference Accuracy: {correct}/{len(test_pairs)}")
+
     logger.info("=" * 65)
 
 
