@@ -1,0 +1,19 @@
+2026-03-14 14:28:37,523 [INFO] Resuming from checkpoint: ./experiments_sorting\checkpoints\best_model.pth
+2026-03-14 14:28:38,643 [INFO] Starting training for 50 epochs...
+2026-03-14 14:28:38,643 [INFO] Output directory: ./experiments_sorting
+2026-03-14 14:28:38,643 [INFO] Device: cuda
+2026-03-14 14:28:38,643 [INFO] Model params: 4,747,280
+2026-03-14 14:28:38,643 [INFO] Engine run starting with max_epochs=50.
+2026-03-14 14:32:29,982 [INFO] Epoch 001 | Train Loss: 0.0085 | Val Loss: 0.0006 | Val Token Acc: 0.9999 | Val Seq Acc: 0.9963
+2026-03-14 14:32:30,022 [INFO] Epoch[1] Complete. Time taken: 00:03:51.374
+2026-03-14 14:36:20,412 [INFO] Epoch 002 | Train Loss: 0.0061 | Val Loss: 0.0004 | Val Token Acc: 0.9999 | Val Seq Acc: 0.9976
+2026-03-14 14:36:20,447 [INFO] Epoch[2] Complete. Time taken: 00:03:50.425
+2026-03-14 14:40:10,412 [INFO] Epoch 003 | Train Loss: 0.0067 | Val Loss: 0.0005 | Val Token Acc: 0.9999 | Val Seq Acc: 0.9970
+2026-03-14 14:40:10,414 [INFO] Epoch[3] Complete. Time taken: 00:03:49.967
+2026-03-14 14:53:59,265 [INFO] Epoch 004 | Train Loss: 0.0058 | Val Loss: 0.0003 | Val Token Acc: 0.9999 | Val Seq Acc: 0.9978
+2026-03-14 14:53:59,416 [INFO] Epoch[4] Complete. Time taken: 00:13:49.002
+2026-03-14 14:57:49,577 [INFO] Epoch 005 | Train Loss: 0.0049 | Val Loss: 0.0003 | Val Token Acc: 0.9999 | Val Seq Acc: 0.9978
+2026-03-14 14:57:49,577 [INFO] Epoch[5] Complete. Time taken: 00:03:50.159
+2026-03-14 15:01:46,773 [INFO] Epoch 006 | Train Loss: 0.0037 | Val Loss: 0.0002 | Val Token Acc: 1.0000 | Val Seq Acc: 0.9989
+2026-03-14 15:01:46,804 [INFO] Epoch[6] Complete. Time taken: 00:03:57.227
+2026-03-14 15:01:53,173 [ERROR] Engine run is terminating due to exception: 

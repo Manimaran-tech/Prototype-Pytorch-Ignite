@@ -20,7 +20,9 @@ trainite_prototype/
     ├── __init__.py
     ├── datasets/
     │   ├── __init__.py
-    │   └── string_reverse.py            # In-memory deterministic dataset
+    │   ├── string_reverse.py            # In-memory deterministic dataset
+    │   ├── integer_addition.py          # Multi-digit addition dataset
+    │   └── number_sorting.py            # Multi-digit integer sorting dataset
     ├── models/
     │   ├── __init__.py
     │   └── transformer.py               # GPT-style decoder-only Transformer
@@ -92,6 +94,15 @@ Target: a b c d e [SEP] e d c b a [EOS]
 
 - **Training**: Standard next-token prediction with cross-entropy loss (padding tokens ignored).
 - **Inference**: Given `[SOS] + input + [SEP]`, the model autoregressively generates the reversed string until `[EOS]`.
+
+### Task: Multi-Task Algorithmic Engine
+
+The toolkit demonstrates its generalizability by seamlessly swapping between three distinct algorithmic tasks via YAML configuration:
+
+1. **String Reversal**: Character-level reversal.
+2. **Integer Addition**: Multi-digit addition with carry propagation.
+3. **Number Sorting**: Ascending order sorting of multi-digit integers (e.g., `45,6,346` -> `6,45,346`).
+
 
 ### Training Loop: PyTorch-Ignite
 

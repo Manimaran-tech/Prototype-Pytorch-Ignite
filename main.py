@@ -17,7 +17,7 @@ import yaml
 import torch
 from torch.utils.data import DataLoader, random_split
 
-from trainite.datasets import StringReverseDataset, IntegerAdditionDataset, collate_fn
+from trainite.datasets import StringReverseDataset, IntegerAdditionDataset, NumberSortingDataset, collate_fn
 from trainite.models import DecoderOnlyTransformer
 from trainite.trainers import Trainer
 
@@ -50,6 +50,10 @@ def main():
         "--seed", type=int, default=42,
         help="Random seed for reproducibility",
     )
+    parser.add_argument(
+        "--resume", action="store_true",
+        help="Resume training from best_model.pth if it exists",
+    )
     args = parser.parse_args()
 
     # ─── Config & Device ───
@@ -79,6 +83,13 @@ def main():
             num_samples=config["dataset"]["size"],
             min_digits=config["dataset"]["min_digits"],
             max_digits=config["dataset"]["max_digits"],
+            seed=args.seed,
+        )
+    elif task_type == "number_sorting":
+        dataset = NumberSortingDataset(
+            num_samples=config["dataset"]["size"],
+            min_len=config["dataset"]["min_len"],
+            max_len=config["dataset"]["max_len"],
             seed=args.seed,
         )
     else:
@@ -135,6 +146,15 @@ def main():
         output_dir=output_dir,
         pad_token_id=dataset.pad_idx,
     )
+
+    # ─── Resume Checkpoint ───
+    if args.resume:
+        checkpoint_path = os.path.join(output_dir, "checkpoints", "best_model.pth")
+        if os.path.exists(checkpoint_path):
+            logger.info(f"Resuming from checkpoint: {checkpoint_path}")
+            model.load_state_dict(torch.load(checkpoint_path, map_location=device, weights_only=True))
+        else:
+            logger.warning(f"No checkpoint found at {checkpoint_path}, starting from scratch.")
 
     # ─── Run Training ───
     history = trainer.run(
@@ -213,6 +233,36 @@ def main():
             logger.info(f"  [{status}]  '{s_input}' -> expected '{expected}' | got '{predicted}'")
 
         logger.info(f"\n  Inference Accuracy: {correct}/{len(test_pairs)}")
+
+    elif task_type == "number_sorting":
+        test_seqs = ["9,2,7,1,5", "3,3,1", "8,0,0,8,5", "9,8,7,6,5,4,3,2,1", "1,2,3"]
+        correct = 0
+        for seq in test_seqs:
+            expected = ",".join(map(str, sorted(map(int, seq.split(",")))))
+            
+            tokens = [dataset.sos_idx] + [dataset.c2i[c] for c in seq] + [dataset.sep_idx]
+            prompt = torch.tensor([tokens], dtype=torch.long, device=device)
+
+            generated = model.generate(
+                prompt, max_new_tokens=len(expected) + 5, eos_token_id=dataset.eos_idx
+            )
+            gen_tokens = generated[0].tolist()
+
+            sep_pos = gen_tokens.index(dataset.sep_idx) if dataset.sep_idx in gen_tokens else -1
+            if sep_pos >= 0:
+                output_tokens = gen_tokens[sep_pos + 1:]
+                if dataset.eos_idx in output_tokens:
+                    output_tokens = output_tokens[:output_tokens.index(dataset.eos_idx)]
+                predicted = "".join(dataset.i2c.get(t, "?") for t in output_tokens)
+            else:
+                predicted = "<failed>"
+
+            status = "PASS" if predicted == expected else "FAIL"
+            if predicted == expected:
+                correct += 1
+            logger.info(f"  [{status}]  '{seq}' -> expected '{expected}' | got '{predicted}'")
+
+        logger.info(f"\n  Inference Accuracy: {correct}/{len(test_seqs)}")
 
     logger.info("=" * 65)
 

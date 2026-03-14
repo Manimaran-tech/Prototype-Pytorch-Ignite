@@ -38,8 +38,9 @@ the following guidance for the prototype:
 | YAML config-driven             | ACHIEVED | All params in `config.yaml`, CLI override via args  |
 | String reversal task           | ACHIEVED | Deterministic in-memory dataset with loss masking   |
 | Integer addition task          | ACHIEVED | Multi-digit addition with carry propagation         |
+| Number sorting task            | ACHIEVED | Multi-digit integer sorting (0-999)                 |
 | Generalization (0-30 chars)    | ACHIEVED | 100% accuracy on strings within training range      |
-| Interactive inference          | ACHIEVED | `predict.py` and `predict_addition.py`              |
+| Interactive inference          | ACHIEVED | `predict.py`, `addition.py`, `sorting.py`           |
 | Visualization & reporting      | ACHIEVED | `visualize.py` generates plots + inference report   |
 
 ---
@@ -149,24 +150,44 @@ to correctly add numbers it has never seen during training.
 
 ---
 
+## Task 3: Multi-Digit Number Sorting
+
+To further prove the "adaptability" of the Trainite engine, a third task was added: sorting random sequences of integers.
+
+### Training Results
+
+- **Model**: Decoder-only Transformer (shared architecture)
+- **Dataset**: 200,000 sequences of integers (0-999)
+- **Training**: 5 epochs (Resumed with `--resume` flag)
+- **Best Val Seq Accuracy**: 99.78%
+
+### Inference Results — Multi-Digit Integers
+
+| Input | Expected | Model Output | Status |
+|-------|----------|-------------|--------|
+| `23,53,67,35,75` | `23,35,53,67,75` | `23,35,53,67,75` | ✅ CORRECT |
+| `999,46,356,356,34,3` | `3,34,46,356,356,999` | `3,34,46,356,356,999` | ✅ CORRECT |
+| `9,5,3,66,22,787,33,567,22` | `3,5,9,22,22,33,66,567,787` | `3,5,9,22,22,33,66,567,787` | ✅ CORRECT |
+| `999,333,444,555,666` | `333,444,555,666,999` | `333,444,555,666,999` | ✅ CORRECT |
+| `44,65,343,6,77,33` | `6,33,44,65,77,343` | `6,33,44,65,77,343` | ✅ CORRECT |
+
+---
+
 ## Key Design Decisions
 
 1. **Loss Masking**: Loss is computed only on the output tokens (after `[SEP]`).
    This prevents gradient dilution from the input prefix and was critical for
-   convergence on both tasks.
+   convergence on all three algorithmic tasks.
 
 2. **GPT-style Architecture**: Used `nn.TransformerEncoder` with causal
    masking instead of `nn.TransformerDecoder` — avoids dummy encoder memory
    and is the canonical approach for autoregressive models.
 
-3. **Pre-norm (`norm_first=True`)**: More stable training for smaller models.
+3. **Resume Training**: Implemented a `--resume` flag in `main.py` allowing the model to quickly adapt to new "phenomena" by leveraging pre-trained weights for basic token recognition.
 
-4. **Deterministic Dataset**: In-memory generation with fixed seeds ensures
-   full reproducibility across runs.
-
-5. **Task-agnostic Pipeline**: The same model, trainer, and config system
-   supports both string reversal and integer addition — demonstrating the
-   toolkit's generalizability.
+4. **Task-agnostic Pipeline**: The same model, trainer, and config system
+   supports string reversal, integer addition, and number sorting — demonstrating the
+   toolkit's extreme generalizability.
 
 ---
 
